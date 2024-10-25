@@ -23,13 +23,22 @@ class MainActivity : ComponentActivity() {
                     viewModel.performAuthResult(it)
                 }
                 when (authState.value) {
-                    AuthState.Authorized -> MainScreen()
-                    AuthState.Initial -> TODO()
-                    AuthState.NotAuthorized -> LoginScreen {
-                        launcher.launch(listOf(VKScope.WALL, VKScope.FRIENDS))
+                    is AuthState.Authorized -> {
+                        MainScreen()
+                    }
+
+                    is AuthState.NotAuthorized -> {
+                        LoginScreen {
+                            launcher.launch(listOf(VKScope.WALL, VKScope.FRIENDS))
+                        }
+                    }
+
+                    else -> {
+
                     }
                 }
             }
         }
     }
 }
+
