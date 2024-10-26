@@ -1,8 +1,10 @@
 package com.akhmedmv.vknewsclient.data.mapper
 
 import android.util.Log
+import com.akhmedmv.vknewsclient.data.model.CommentsResponseDto
 import com.akhmedmv.vknewsclient.data.model.NewsFeedResponseDto
 import com.akhmedmv.vknewsclient.domain.FeedPost
+import com.akhmedmv.vknewsclient.domain.PostComment
 import com.akhmedmv.vknewsclient.domain.StatisticItem
 import com.akhmedmv.vknewsclient.domain.StatisticType
 import java.text.SimpleDateFormat
@@ -34,7 +36,7 @@ class NewsFeedMapper {
                     id = post.id,
                     communityId = post.communityId,
                     communityName = group.name,
-                    publicationDate = mapTimestampToDate(post.date * 1000),
+                    publicationDate = mapTimestampToDate(post.date),
                     communityImageUrl = group.imageUrl,
                     contentText = post.text,
                     contentImageUrl = post.attachments?.firstOrNull()?.photo?.photoUrls?.lastOrNull()?.url,
@@ -56,14 +58,7 @@ class NewsFeedMapper {
         return result
     }
 
-    private fun mapTimestampToDate(timestamp: Long): String {
-        val date = Date(timestamp)
-        return SimpleDateFormat("d MMMM yyyy, hh:mm", Locale.getDefault()).format(date)
-    }
-}
-
-
-/*fun mapResponseToComments(response: CommentsResponseDto): List<PostComment> {
+    fun mapResponseToComments(response: CommentsResponseDto): List<PostComment> {
         val result = mutableListOf<PostComment>()
         val comments = response.content.comments
         val profiles = response.content.profiles
@@ -80,4 +75,10 @@ class NewsFeedMapper {
             result.add(postComment)
         }
         return result
-    }*/
+    }
+
+    private fun mapTimestampToDate(timestamp: Long): String {
+        val date = Date(timestamp * 1000)
+        return SimpleDateFormat("d MMMM yyyy, hh:mm", Locale.getDefault()).format(date)
+    }
+}
