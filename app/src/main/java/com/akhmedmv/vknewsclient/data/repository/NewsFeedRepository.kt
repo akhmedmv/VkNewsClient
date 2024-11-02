@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import com.akhmedmv.vknewsclient.data.mapper.NewsFeedMapper
 import com.akhmedmv.vknewsclient.data.network.ApiFactory
+import com.akhmedmv.vknewsclient.domain.AuthState
 import com.akhmedmv.vknewsclient.domain.FeedPost
 import com.akhmedmv.vknewsclient.domain.PostComment
 import com.akhmedmv.vknewsclient.domain.StatisticItem
@@ -25,7 +26,7 @@ import kotlinx.coroutines.flow.stateIn
 class NewsFeedRepository(application: Application) {
 
     private val storage = VKPreferencesKeyValueStorage(application)
-    private val token = VKAccessToken.restore(storage)
+    private val token get() = VKAccessToken.restore(storage)
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
     private val nextDataNeededEvents = MutableSharedFlow<Unit>(replay = 1)
     private val refreshedListFlow = MutableSharedFlow<List<FeedPost>>()
@@ -68,6 +69,22 @@ class NewsFeedRepository(application: Application) {
 
     private var nextFrom: String? = null
 
+    private val checkAuthStateEvents = MutableSharedFlow<Unit>(replay = 1)
+
+    val authStateFlow = flow {
+        checkAuthStateEvents.emit(Unit)
+        checkAuthStateEvents.collect {
+            val currentToken = token
+            val loggedIn = currentToken != null && currentToken.isValid
+            val authState = if (loggedIn) AuthState.Authorized else AuthState.NotAuthorized
+            emit(authState)
+        }
+    }.stateIn(
+        scope = coroutineScope,
+        started = SharingStarted.Lazily,
+        initialValue = AuthState.Initial
+    )
+
     val recommendations: StateFlow<List<FeedPost>> = loadedListFlow
         .mergeWith(refreshedListFlow)
         .stateIn(
@@ -78,6 +95,10 @@ class NewsFeedRepository(application: Application) {
 
     suspend fun loadNextData() {
         nextDataNeededEvents.emit(Unit)
+    }
+
+    suspend fun checkAuthState() {
+        checkAuthStateEvents.emit(Unit)
     }
 
     private fun getAccessToken(): String {
