@@ -1,4 +1,4 @@
-package com.akhmedmv.vknewsclient.domain
+package com.akhmedmv.vknewsclient.domain.entity
 
 sealed class AuthState {
     object Authorized : AuthState()

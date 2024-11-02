@@ -31,7 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.akhmedmv.vknewsclient.domain.FeedPost
+import com.akhmedmv.vknewsclient.domain.entity.FeedPost
 import com.akhmedmv.vknewsclient.ui.ui.theme.DarkBlue
 
 @Composable

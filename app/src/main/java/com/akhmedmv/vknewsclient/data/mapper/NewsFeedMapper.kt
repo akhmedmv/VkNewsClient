@@ -3,10 +3,10 @@ package com.akhmedmv.vknewsclient.data.mapper
 import android.util.Log
 import com.akhmedmv.vknewsclient.data.model.CommentsResponseDto
 import com.akhmedmv.vknewsclient.data.model.NewsFeedResponseDto
-import com.akhmedmv.vknewsclient.domain.FeedPost
-import com.akhmedmv.vknewsclient.domain.PostComment
-import com.akhmedmv.vknewsclient.domain.StatisticItem
-import com.akhmedmv.vknewsclient.domain.StatisticType
+import com.akhmedmv.vknewsclient.domain.entity.FeedPost
+import com.akhmedmv.vknewsclient.domain.entity.PostComment
+import com.akhmedmv.vknewsclient.domain.entity.StatisticItem
+import com.akhmedmv.vknewsclient.domain.entity.StatisticType
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
