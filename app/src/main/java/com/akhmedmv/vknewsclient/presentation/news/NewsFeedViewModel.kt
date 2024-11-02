@@ -16,10 +16,13 @@ import kotlinx.coroutines.launch
 
 class NewsFeedViewModel(application: Application) : AndroidViewModel(application) {
 
+    /*private val exceptionHandler = CoroutineExceptionHandler { _, _ ->
+        Log.d("NewsFeedViewModel", "Exception caught by exception handler")
+    }
+*/
     private val exceptionHandler = CoroutineExceptionHandler { _, _ ->
         Log.d("NewsFeedViewModel", "Exception caught by exception handler")
     }
-
     private val repository = NewsFeedRepository(application)
 
     private val recommendationsFlow = repository.recommendations
