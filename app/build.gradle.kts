@@ -60,6 +60,8 @@ dependencies {
     implementation(libs.android.sdk.core)
     implementation(libs.okhttp3.logging.interceptor)
     implementation (libs.converter.gson)
+    implementation(libs.dagger)
+    annotationProcessor(libs.dagger.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

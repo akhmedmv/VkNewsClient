@@ -1,20 +1,21 @@
 [versions]
-agp = "8.7.1"
+agp = "8.7.2"
 androidSdkCore = "4.1.0"
 converterGson = "2.11.0"
+dagger = "2.51.1"
 kotlin = "2.0.21"
-coreKtx = "1.13.1"
+coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 kotlinxCoroutinesCore = "1.9.0"
-lifecycleRuntimeKtx = "2.8.6"
+lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
-composeBom = "2024.10.00"
-liveData = "1.7.4"
+composeBom = "2024.10.01"
+liveData = "1.7.5"
 navigationCompose = "2.8.3"
 googleGson = "2.10.1"
-viemodelCompose = "2.8.6"
+viemodelCompose = "2.8.7"
 coilCompose = "2.2.2"
 okhttp3Logging = "4.9.3"
 
@@ -23,6 +24,8 @@ android-sdk-api = { module = "com.vk:android-sdk-api", version.ref = "androidSdk
 android-sdk-core = { module = "com.vk:android-sdk-core", version.ref = "androidSdkCore" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
