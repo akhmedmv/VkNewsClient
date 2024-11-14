@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,6 +35,18 @@ fun CommentsScreen(
 
     val viewModel: CommentsViewModel = viewModel(factory = component.getViewModelFactory())
     val screenState = viewModel.screenState.collectAsState(CommentsScreenState.Initial)
+    CommentsScreenContent(
+        screenState = screenState,
+        onBackPressed = onBackPressed
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun CommentsScreenContent(
+    screenState: State<CommentsScreenState>,
+    onBackPressed: () -> Unit,
+) {
     val currentState = screenState.value
 
     if (currentState is CommentsScreenState.Comments) {
