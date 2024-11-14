@@ -10,7 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -20,11 +20,12 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.akhmedmv.vknewsclient.navigation.AppNavGraph
 import com.akhmedmv.vknewsclient.navigation.rememberNavigationState
+import com.akhmedmv.vknewsclient.presentation.ViewModelFactory
 import com.akhmedmv.vknewsclient.presentation.comments.CommentsScreen
 import com.akhmedmv.vknewsclient.presentation.news.NewsFeedScreen
 
 @Composable
-fun MainScreen() {
+fun MainScreen(viewModelFactory: ViewModelFactory) {
     val navigationState = rememberNavigationState()
 
     Scaffold(
@@ -41,7 +42,7 @@ fun MainScreen() {
 
                     val selected = navBackStackEntry?.destination?.hierarchy?.any {
                         it.route == item.screen.route
-                    } ?: false
+                    } == true
 
                     NavigationBarItem(
                         selected = selected,
@@ -69,6 +70,7 @@ fun MainScreen() {
             navHostController = navigationState.navHostController,
             newsFeedScreenContent = {
                 NewsFeedScreen(
+                    viewModelFactory = viewModelFactory,
                     paddingValues = paddingValues,
                     onCommentClickListener = { it ->
                         navigationState.navigateToComments(it)
@@ -92,7 +94,7 @@ fun MainScreen() {
 @Composable
 private fun TextCounter(name: String) {
     var count by rememberSaveable {
-        mutableStateOf(0)
+        mutableIntStateOf(0)
     }
 
     Text(
